@@ -1,6 +1,36 @@
 import styled from "styled-components";
+import gsap from 'gsap'
+import { useEffect, useRef } from "react";
 
 const MainBanner = () => {
+  const infoRef = useRef(null);
+
+  useEffect(() => {
+    if (infoRef.current) {
+      const p = infoRef.current.querySelector('p');
+      const strong = infoRef.current.querySelector('strong');
+      
+      gsap.set([p, strong], {
+        x: 60,
+        opacity: 0,
+        display: 'block'
+      });
+      
+      const tl = gsap.timeline({
+        defaults: {
+          ease: "power2.out",
+          duration: 0.6
+        }
+      });
+  
+      tl.to([p, strong], {
+        x: 0,
+        opacity: 1,
+        stagger: 0.1
+      });
+    }
+  }, []);
+
   return (
     <MainBannerContainer>
       <div className="banner-inner">
@@ -14,7 +44,7 @@ const MainBanner = () => {
             </div>
             <button className="item-nav">열기</button>
             <div className="item-image">
-              <div className="info-wrap">
+              <div className="info-wrap" ref={infoRef}>
                 <p>ddescription-A</p>
                 <strong>title</strong>
               </div>

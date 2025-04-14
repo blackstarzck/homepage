@@ -83,11 +83,11 @@ const Home = () => {
                           <ul className="list-wrap">
                             {
                               gnbList.map((item, index) => (
-                                <li className="item">
+                                <li className="item" key={index}>
                                   <span>{item.name}</span>
                                   <ul className="sub-list">
                                     {item.subList.map((item, index) => (
-                                      <li className="sub-item">
+                                      <li className="sub-item" key={index}>
                                         <a href={item.link}>{item.name}</a>
                                       </li>
                                     ))}
