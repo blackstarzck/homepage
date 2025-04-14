@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import MainBanner from './MainBanner'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 const gnbList = [
   {
@@ -9,8 +9,8 @@ const gnbList = [
       { name: '케듀올-A', link: '#' },
       { name: '케듀올-A', link: '#' },
       { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' }
-    ]
+      { name: '케듀올-A', link: '#' },
+    ],
   },
   {
     name: '케듀올',
@@ -18,8 +18,8 @@ const gnbList = [
       { name: '케듀올-A', link: '#' },
       { name: '케듀올-A', link: '#' },
       { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' }
-    ]
+      { name: '케듀올-A', link: '#' },
+    ],
   },
   {
     name: '케듀올',
@@ -27,14 +27,13 @@ const gnbList = [
       { name: '케듀올-A', link: '#' },
       { name: '케듀올-A', link: '#' },
       { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' }
-    ]
+      { name: '케듀올-A', link: '#' },
+    ],
   },
 ]
 
-
 const Home = () => {
-  const [activeState, setActiveState] = useState('');
+  const [activeState, setActiveState] = useState('')
 
   return (
     <>
@@ -46,29 +45,41 @@ const Home = () => {
               <div className="header-inner-grid">
                 <nav className="gnb">
                   <ul className="gnb-list">
-                    {
-                      gnbList.map((item, index) => {
-                        return (
-                          <li key={index} onMouseEnter={() => setActiveState('gnb-active')} onMouseLeave={() => setActiveState('')}>
-                            <span>{item.name}</span>
-                            <div className="snb">
-                              <ul className="snb-list">
-                                {item.subList.map((item, index) => <li key={index}><a href={item.link}>{item.name}</a></li>)}
-                              </ul>
-                            </div>
-                          </li>
-                        )
-                      })
-                    }
+                    {gnbList.map((item, index) => {
+                      return (
+                        <li key={index} onMouseEnter={() => setActiveState('gnb-active')} onMouseLeave={() => setActiveState('')}>
+                          <span>{item.name}</span>
+                          <div className="snb">
+                            <ul className="snb-list">
+                              {item.subList.map((item, index) => (
+                                <li key={index}>
+                                  <a href={item.link}>{item.name}</a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </nav>
               </div>
               <div className="side-btn-wrap">
-                <button className="search" onClick={() => activeState === 'search-active' ? setActiveState('') : setActiveState('search-active')}><span>검색</span></button>
-                <button className="menu" onClick={() => activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active')}><span>메뉴</span></button>
+                <button className="search" onClick={() => (activeState === 'search-active' ? setActiveState('') : setActiveState('search-active'))}>
+                  <span>검색</span>
+                </button>
+                <button className="menu" onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}>
+                  <span>메뉴</span>
+                </button>
               </div>
               <HeaderMenuWrap $menuAcitve={activeState === 'menu-active'}>
-                <button type="button" className="close-btn" onClick={() => activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active')}><img src="/icons/close_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24.svg" alt="닫기" /></button>
+                <button
+                  type="button"
+                  className="close-btn"
+                  onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}
+                >
+                  <img src="/icons/close_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24.svg" alt="닫기" />
+                </button>
                 <div className="menu-inner">
                   <div className="menu-content">
                     {/* top */}
@@ -81,20 +92,18 @@ const Home = () => {
                         {/* right */}
                         <div className="list">
                           <ul className="list-wrap">
-                            {
-                              gnbList.map((item, index) => (
-                                <li className="item" key={index}>
-                                  <span>{item.name}</span>
-                                  <ul className="sub-list">
-                                    {item.subList.map((item, index) => (
-                                      <li className="sub-item" key={index}>
-                                        <a href={item.link}>{item.name}</a>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </li>
-                              ))
-                            }
+                            {gnbList.map((item, index) => (
+                              <li className="item" key={index}>
+                                <span>{item.name}</span>
+                                <ul className="sub-list">
+                                  {item.subList.map((item, index) => (
+                                    <li className="sub-item" key={index}>
+                                      <a href={item.link}>{item.name}</a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -104,10 +113,18 @@ const Home = () => {
                       <div className="menu-content-bottom-inner">
                         <div className="common-menu">
                           <ul className="common-menu-list">
-                            <li className="item"><a href="#">개인정보처리방침</a></li>
-                            <li className="item"><a href="#">고객지원</a></li>
-                            <li className="item"><a href="#">사업장 소개</a></li>
-                            <li className="item"><a href="#">관계사 소개</a></li>
+                            <li className="item">
+                              <a href="#">개인정보처리방침</a>
+                            </li>
+                            <li className="item">
+                              <a href="#">고객지원</a>
+                            </li>
+                            <li className="item">
+                              <a href="#">사업장 소개</a>
+                            </li>
+                            <li className="item">
+                              <a href="#">관계사 소개</a>
+                            </li>
                           </ul>
                         </div>
                         <div className="sns-menu">
@@ -147,7 +164,7 @@ const HeaderContainer = styled.header`
     left: 0;
     width: 100%;
     transform: translate(0px, 0px);
-    transition: transform 0.6s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     & .header-gnb-wrap {
       position: absolute;
@@ -157,7 +174,10 @@ const HeaderContainer = styled.header`
       background-color: rgba(255, 255, 255, 0);
       backdrop-filter: blur(0);
       overflow: hidden;
-      transition: height 0.6s cubic-bezier(0.165, 0.840, 0.440, 1.000), background 0.3s ease, backdrop-filter 0.3s ease;
+      transition:
+        height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+        background 0.3s ease,
+        backdrop-filter 0.3s ease;
     }
 
     // GNB ACTIVE STATE
@@ -167,13 +187,19 @@ const HeaderContainer = styled.header`
       backdrop-filter: blur(2px);
 
       & .gnb-list li {
-        span { color: var(--text-secondary); }
+        span {
+          color: var(--text-secondary);
+        }
         &:hover {
-          span { color: var(--text-default); }
+          span {
+            color: var(--text-default);
+          }
           & .snb-list li {
             visibility: visible;
 
-            &:hover::after { width: 100%; }
+            &:hover::after {
+              width: 100%;
+            }
           }
         }
       }
@@ -198,7 +224,7 @@ const HeaderContainer = styled.header`
     // MENU ACTIVE STATE
     &.menu-active .header-gnb-wrap {
       height: 100vh;
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
 
     & .header-inner {
@@ -239,7 +265,7 @@ const HeaderContainer = styled.header`
             width: 100%;
             height: 100%;
             cursor: pointer;
-            color: #FFFFFF;
+            color: #ffffff;
             transition: color 0.2s ease;
           }
         }
@@ -250,9 +276,10 @@ const HeaderContainer = styled.header`
         position: relative;
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
-          bottom: 3px; left: 0;
+          bottom: 3px;
+          left: 0;
           display: block;
           width: 0;
           height: 2px;
@@ -266,7 +293,7 @@ const HeaderContainer = styled.header`
           transition: color 0.2s ease;
 
           &:hover {
-            color: var(--text-default)
+            color: var(--text-default);
           }
         }
       }
@@ -281,7 +308,8 @@ const HeaderContainer = styled.header`
 
         & span {
           position: absolute;
-          top: 0; left: 0;
+          top: 0;
+          left: 0;
           opacity: 0;
         }
       }
@@ -303,7 +331,11 @@ const HeaderMenuWrap = styled.div`
     width: 46px;
     height: 46px;
 
-    img { height: 100%; width: 100%; object-fit: contain; }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
   }
 
   position: absolute;
@@ -312,10 +344,13 @@ const HeaderMenuWrap = styled.div`
   width: 100%;
   height: 100%;
   z-index: 9999;
-  transition: opacity 0.2s 0s ease, visibility 0s 0.2s ease, overflow 0s 0.2s ease;
+  transition:
+    opacity 0.2s 0s ease,
+    visibility 0s 0.2s ease,
+    overflow 0s 0.2s ease;
   opacity: 0;
   visibility: hidden;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 
   ${({ $menuAcitve }) => {
     if ($menuAcitve) {
@@ -333,20 +368,22 @@ const HeaderMenuWrap = styled.div`
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 
     .menu-content {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
-      
+
       .menu-content-body {
         .menu-content-body-inner {
           display: flex;
           height: 100%;
 
-          .title { width: 30%; }
+          .title {
+            width: 30%;
+          }
           .list {
             flex: 1;
 
@@ -354,19 +391,22 @@ const HeaderMenuWrap = styled.div`
               display: flex;
               gap: 10px;
 
-              li.item { flex: 1;  }
+              li.item {
+                flex: 1;
+              }
               li.item > span {
                 position: relative;
                 padding-bottom: 16px;
                 color: var(--text-secondary);
 
                 &::after {
-                  content: "";
+                  content: '';
                   display: block;
                   width: 60%;
                   height: 2px;
                   position: absolute;
-                  bottom: 0; left: 0;
+                  bottom: 0;
+                  left: 0;
                   background-color: var(--text-default);
                 }
               }
@@ -374,10 +414,20 @@ const HeaderMenuWrap = styled.div`
                 font-size: 18px;
                 font-weight: 400;
                 transition: color 0.2s ease;
-                &:hover { color: var(--secondary); }
+                &:hover {
+                  color: var(--secondary);
+                }
               }
-              li.item .sub-list { display: flex; flex-direction: column; gap: 16px; margin-top: 86px; }
-              li.item .sub-list li.sub-item { width: 100%; padding: 16px 0; }
+              li.item .sub-list {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                margin-top: 86px;
+              }
+              li.item .sub-list li.sub-item {
+                width: 100%;
+                padding: 16px 0;
+              }
             }
           }
         }
@@ -386,13 +436,18 @@ const HeaderMenuWrap = styled.div`
   }
   .menu-content-bottom {
     padding: 36px 0;
-  
+
     ul.common-menu-list {
       display: flex;
       gap: 16px;
 
-      li.item:first-child a { font-weight: 500; }
-      li.item:not(:first-child) a { font-size: 16px; color: var(--text-secondary); }
+      li.item:first-child a {
+        font-weight: 500;
+      }
+      li.item:not(:first-child) a {
+        font-size: 16px;
+        color: var(--text-secondary);
+      }
     }
   }
 `

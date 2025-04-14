@@ -1,81 +1,134 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import gsap from 'gsap'
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react'
 
 const MainBanner = () => {
-  const infoRef = useRef(null);
+  const infoRef = useRef(null)
+  const listsRef = useRef(null)
 
   useEffect(() => {
-    if (infoRef.current) {
-      const p = infoRef.current.querySelector('p');
-      const strong = infoRef.current.querySelector('strong');
-      
-      gsap.set([p, strong], {
-        x: 60,
-        opacity: 0,
-        display: 'block'
-      });
-      
-      const tl = gsap.timeline({
-        defaults: {
-          ease: "power2.out",
-          duration: 0.6
+    gsap.to('.banner-03', {
+      width: '100%',
+      duration: 0.2,
+      ease: 'power2.easeOut',
+    })
+    gsap.to('.banner-02', {
+      delay: 0.2,
+      width: '100%',
+      duration: 0.2,
+      ease: 'power2.easeOut',
+    })
+
+    const tl = gsap.timeline()
+
+    tl.to('.banner-03', {
+      width: '100%',
+      duration: 0.2,
+      ease: 'power2.easeOut',
+    })
+      .to('.banner-02', {
+        width: '100%',
+        duration: 0.2,
+        ease: 'power2.easeOut',
+      })
+      .to('.banner-01', {
+        width: '100%',
+        duration: 0.2,
+        ease: 'power2.easeOut',
+      })
+      .to('.banner-03', {
+        width: '5%',
+        duration: 0.1,
+        ease: 'power2.easeIn',
+      })
+      .to('.banner-02', {
+        width: '5%',
+        duration: 0.1,
+        ease: 'power2.easeIn',
+      })
+      .fromTo(
+        '.item-label-inner',
+        {
+          opacity: 0,
+          y: 60,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.easeOut',
         }
-      });
-  
-      tl.to([p, strong], {
-        x: 0,
-        opacity: 1,
-        stagger: 0.1
-      });
-    }
-  }, []);
+      )
+  }, [])
+
+  useEffect(() => {
+    // if (infoRef.current) {
+    //   const p = infoRef.current.querySelector('p')
+    //   const strong = infoRef.current.querySelector('strong')
+    //   gsap.set([p, strong], {
+    //     x: 60,
+    //     opacity: 0,
+    //     display: 'block',
+    //   })
+    //   const tl = gsap.timeline({
+    //     defaults: {
+    //       ease: 'power2.out',
+    //       duration: 0.6,
+    //     },
+    //   })
+    //   tl.to([p, strong], {
+    //     x: 0,
+    //     opacity: 1,
+    //     stagger: 0.1,
+    //   })
+    // }
+  }, [])
 
   return (
     <MainBannerContainer>
       <div className="banner-inner">
-        <ul className="banner-list">
-          <li className="banner-item active" style={{ backgroundColor: 'yellow' }}>
+        <ul ref={listsRef} className="banner-list">
+          <li className="banner-item  banner-01 active" style={{ backgroundColor: 'yellow' }}>
             <div className="item-label">
-              <div className="item-inner">
+              <div className="item-label-inner">
                 <span className="number">01</span>
                 <span className="text">ddescription-A</span>
               </div>
             </div>
             <button className="item-nav">열기</button>
-            <div className="item-image">
-              <div className="info-wrap" ref={infoRef}>
+            <div className="info-wrap">
+              <div className="info-inner" ref={infoRef}>
                 <p>ddescription-A</p>
                 <strong>title</strong>
               </div>
-              <img src="/images/main-banner-01.jpg" alt="메인 배너 01" />
             </div>
+            <img src="/images/main-banner-01.jpg" alt="메인 배너 01" />
           </li>
-          <li className="banner-item" style={{ backgroundColor: 'green' }}>
+          <li className="banner-item banner-02 " style={{ backgroundColor: 'green' }}>
             <div className="item-label">
-              <div className="item-inner">
+              <div className="item-label-inner">
                 <span className="number">02</span>
                 <span className="text">ddescription-A</span>
               </div>
             </div>
             <button className="item-nav">열기</button>
-            <div className="item-image">
-              <div className="info-wrap">
+            <div className="info-wrap">
+              <div className="info-inner">
                 <p>ddescription-A</p>
                 <strong>title</strong>
               </div>
             </div>
           </li>
-          <li className="banner-item" style={{ backgroundColor: 'blue' }}>
+          <li className="banner-item banner-03 " style={{ backgroundColor: 'blue' }}>
             <div className="item-label">
-              <div className="item-inner">
+              <div className="item-label-inner">
                 <span className="number">03</span>
                 <span className="text">ddescription-A</span>
               </div>
             </div>
             <button className="item-nav">열기</button>
-            <div className="item-image">
-              <div className="info-wrap">
+            <div className="info-wrap">
+              <div className="info-inner">
                 <p>ddescription-A</p>
                 <strong>title</strong>
               </div>
@@ -91,11 +144,40 @@ const MainBannerContainer = styled.div`
   width: 100%;
   height: 100%;
 
-  .item-image {
-    user-select: none;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
+  }
 
-    & img { height: 100%; }
+  .info-wrap {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 10;
+
+    & .info-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      visibility: hidden;
+      opacity: 0;
+
+      p {
+        font-size: 26px;
+      }
+      strong {
+        font-size: 56px;
+      }
+    }
   }
 
   .banner-inner {
@@ -114,6 +196,7 @@ const MainBannerContainer = styled.div`
     overflow: hidden;
     position: relative;
     transition: all 0.5s ease;
+    width: 0;
 
     & .item-label {
       position: absolute;
@@ -122,7 +205,7 @@ const MainBannerContainer = styled.div`
       width: 100%;
       z-index: 20;
 
-      .item-inner {
+      .item-label-inner {
         position: absolute;
         bottom: 30px;
         left: 45%;
@@ -139,29 +222,22 @@ const MainBannerContainer = styled.div`
         white-space: nowrap;
         transition: all 0.5s ease;
 
-        & .number { font-size: 16px; font-weight: 600;  }
-        & .text { font-size: 32px; opacity: 0; transition: all 0.5s ease; }
+        & .number {
+          font-size: 16px;
+          font-weight: 600;
+        }
+        & .text {
+          font-size: 32px;
+          opacity: 0;
+          transition: all 0.5s ease;
+        }
       }
-    }
-
-    & .info-wrap {
-      position: absolute;
-      bottom: 50%;
-      left: 10%;
-      transform: translate(-50%, 50%);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      visibility: hidden;
-      opacity: 0;
-
-      & p { font-size: 26px; }
-      & strong { font-size: 56px; }
     }
 
     & button.item-nav {
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background-color: transparent;
@@ -169,23 +245,31 @@ const MainBannerContainer = styled.div`
       font-size: 0;
     }
 
-    width: 5%;
+    &:not(.active):hover {
+      /* width: 10% !important; */
 
-    &:hover {
-      width: 10%;
-      & .item-label .item-inner { left: 10%; }
-      & .item-inner .text { opacity: 1; }
+      & .item-label .item-label-inner {
+        left: 10%;
+      }
+      & .item-label-inner .text {
+        opacity: 1;
+      }
     }
 
     &.active {
-      flex: 1;
-      background-color: red;
+      /* flex: 1; */
+      /* width: 100%; */
       cursor: default;
 
-      & .info-wrap { opacity: 1; visibility: visible; }
-      & .item-label .item-inner { opacity: 0; }
+      & .info-inner {
+        opacity: 1;
+        visibility: visible;
+      }
+      & .item-label .item-label-inner {
+        opacity: 0;
+      }
     }
   }
 `
 
-export default MainBanner;
+export default MainBanner
