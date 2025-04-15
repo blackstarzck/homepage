@@ -13,7 +13,7 @@ const MainBanner = () => {
       ease: 'power2.easeOut',
     })
     gsap.to('.banner-02', {
-      delay: 0.2,
+      delay: 0.1,
       width: '100%',
       duration: 0.2,
       ease: 'power2.easeOut',
@@ -53,6 +53,7 @@ const MainBanner = () => {
           y: 60,
         },
         {
+          delay: 0.6,
           opacity: 1,
           y: 0,
           duration: 0.5,
@@ -62,26 +63,29 @@ const MainBanner = () => {
   }, [])
 
   useEffect(() => {
-    // if (infoRef.current) {
-    //   const p = infoRef.current.querySelector('p')
-    //   const strong = infoRef.current.querySelector('strong')
-    //   gsap.set([p, strong], {
-    //     x: 60,
-    //     opacity: 0,
-    //     display: 'block',
-    //   })
-    //   const tl = gsap.timeline({
-    //     defaults: {
-    //       ease: 'power2.out',
-    //       duration: 0.6,
-    //     },
-    //   })
-    //   tl.to([p, strong], {
-    //     x: 0,
-    //     opacity: 1,
-    //     stagger: 0.1,
-    //   })
-    // }
+    if (infoRef.current) {
+      const p = infoRef.current.querySelector('p')
+      const strong = infoRef.current.querySelector('strong')
+      gsap.set([p, strong], {
+        x: 60,
+        opacity: 0,
+        display: 'block',
+      })
+      const tl = gsap.timeline({
+        defaults: {
+          ease: 'power2.out',
+          duration: 0.4,
+        },
+      })
+
+      setTimeout(() => {
+        tl.to([p, strong], {
+          x: 0,
+          opacity: 1,
+          stagger: 0.1,
+        })
+      }, 1400);
+    }
   }, [])
 
   return (

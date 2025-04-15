@@ -435,7 +435,7 @@ const HeaderMenuWrap = styled.div`
     }
   }
   .menu-content-bottom {
-    padding: 36px 0;
+    padding-top: 36px;
 
     ul.common-menu-list {
       display: flex;
