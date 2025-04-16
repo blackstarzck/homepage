@@ -4,31 +4,43 @@ import { useState } from 'react'
 
 const gnbList = [
   {
-    name: '케듀올',
+    name: 'COMPANY',
     subList: [
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
+      { name: '회사소개', link: '#' },
+      { name: '핵심가치', link: '#' },
+      { name: '비전', link: '#' },
+      { name: '연혁', link: '#' },
     ],
   },
   {
-    name: '케듀올',
+    name: 'SERVICE',
     subList: [
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
+      { name: '한국어 강의', link: '#' },
+      { name: 'AI 학습', link: '#' },
+      { name: '유학 및 취업 지원', link: '#' },
     ],
   },
   {
-    name: '케듀올',
+    name: 'CAREER',
     subList: [
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
-      { name: '케듀올-A', link: '#' },
+      { name: '인재상', link: '#' },
+      { name: '채용절차', link: '#' },
+      { name: '채용부문', link: '#' },
+      { name: '채용공고', link: '#' },
     ],
+  },
+  {
+    name: 'RESOURCES',
+    subList: [
+      { name: '보도자료', link: '#' },
+      { name: '블로그', link: '#' },
+      { name: '채용부문', link: '#' },
+      { name: 'SNS', link: '#' },
+    ],
+  },
+  {
+    name: 'CONTACT',
+    subList: [],
   },
 ]
 
@@ -41,14 +53,14 @@ const Home = () => {
         <div className={`header-wrap ${activeState}`}>
           <div className="header-gnb-wrap">
             <div className="header-inner">
-              <h1 className="logo">로고</h1>
+              <h1 className="logo"><img src="/images/keduall_dark.png" alt="로고" /></h1>
               <div className="header-inner-grid">
                 <nav className="gnb">
                   <ul className="gnb-list">
                     {gnbList.map((item, index) => {
                       return (
                         <li key={index} onMouseEnter={() => setActiveState('gnb-active')} onMouseLeave={() => setActiveState('')}>
-                          <span>{item.name}</span>
+                          <span className="font-montserrat">{item.name}</span>
                           <div className="snb">
                             <ul className="snb-list">
                               {item.subList.map((item, index) => (
@@ -65,9 +77,9 @@ const Home = () => {
                 </nav>
               </div>
               <div className="side-btn-wrap">
-                <button className="search" onClick={() => (activeState === 'search-active' ? setActiveState('') : setActiveState('search-active'))}>
+                {/* <button className="search" onClick={() => (activeState === 'search-active' ? setActiveState('') : setActiveState('search-active'))}>
                   <span>검색</span>
-                </button>
+                </button> */}
                 <button className="menu" onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}>
                   <span>메뉴</span>
                 </button>
@@ -184,7 +196,7 @@ const HeaderContainer = styled.header`
     &.gnb-active .header-gnb-wrap {
       height: 316px;
       background-color: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(4px);
 
       & .gnb-list li {
         span {
@@ -197,7 +209,7 @@ const HeaderContainer = styled.header`
           & .snb-list li {
             visibility: visible;
 
-            &:hover::after {
+            &:hover a::after {
               width: 100%;
             }
           }
@@ -237,10 +249,9 @@ const HeaderContainer = styled.header`
       & > .logo {
         width: 120px;
         height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #a1a1a1;
+        flex-shrink: 0;
+
+        img { width: 100% }
       }
     }
 
@@ -257,43 +268,53 @@ const HeaderContainer = styled.header`
           padding: 0 60px;
 
           & > span {
-            font-size: 18px;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+
+            font-size: 18px;
+            font-weight: 500;
             width: 100%;
             height: 100%;
             cursor: pointer;
-            color: #ffffff;
+            color: var(--text-default);
             transition: color 0.2s ease;
           }
         }
       }
-      & .snb-list li {
-        padding: 10px 0;
-        visibility: hidden;
-        position: relative;
+      .snb {
+        // width: 120px;
+      }
+      & .snb-list {
 
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 3px;
-          left: 0;
-          display: block;
-          width: 0;
-          height: 2px;
-          background-color: var(--secondary);
-          transition: width 0.2s ease;
-        }
+        li {
+          padding: 10px 0;
+          visibility: hidden;
+          white-space: nowrap;
 
-        & > a {
-          color: var(--text-default);
-          font-size: 16px;
-          transition: color 0.2s ease;
+          a {
+            position: relative;
 
-          &:hover {
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: -5px;
+              left: 0;
+              display: block;
+              width: 0;
+              height: 2px;
+              background-color: rgba(255, 255, 255, 0.8);
+              transition: width 0.2s ease;
+            }
+          }
+
+          & > a {
             color: var(--text-default);
+            font-size: 16px;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: var(--text-default);
+            }
           }
         }
       }
