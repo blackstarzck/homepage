@@ -47,7 +47,7 @@ const Strategy = () => {
             threshold: 0.5, // 뷰포트에 50% 들어왔을 때 트리거
             once: true, // 한번만 애니메이션 실행
           })
-        }, 2100)
+        }, 1800)
       },
       once: true,
       // markers: true,

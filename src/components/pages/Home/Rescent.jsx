@@ -46,7 +46,7 @@ const Rescent = () => {
                 25일 밝혔다.
               </p>
             </div>
-            <a href="#"></a>
+            <a target="_blank" rel="noreferrer" href="https://www.dnews.co.kr/uhtml/view.jsp?idxno=202503261459434610769"></a>
           </div>
         </li>
       </ul>
@@ -93,13 +93,13 @@ const RescentContainer = styled.article`
   }
 
   ul {
-    padding: 130px 0 64px;
+    padding: 130px 134px 64px;
   }
 
   li {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 56px;
     padding: 20px 0;
     overflow: hidden;
 
@@ -133,7 +133,7 @@ const RescentContainer = styled.article`
 
     .title {
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 500;
       color: #3f3f3f;
     }
     p.description {
