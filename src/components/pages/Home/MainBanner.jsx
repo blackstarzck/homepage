@@ -3,19 +3,42 @@ import gsap from 'gsap'
 import { useEffect, useRef, useState, useMemo } from 'react'
 
 const banners = [
-  { order: 1, class: 'banner-01', imgSrc: '/images/main-banner-01.jpg', title: '당신의 한국어를 세계로', description: '초보자부터 TOPIK 고급까지, 언제 어디서나 품질 높은 한국어 강의로 실력을 키우세요. 생활 회화부터 근로 현장 특화 교육까지, 맞춤 학습을 경험하세요.', link: '' },
-  { order: 2, class: 'banner-02', imgSrc: '/images/main-banner-02.jpg', title: 'AI로 여는 학습의 미래', description: '실시간 화상 강의, 발음 분석, 맞춤형 코스웨어로 당신의 한국어를 정밀하게 업그레이드합니다. AI가 분석한 개인별 피드백으로 더 빠르고 효과적인학습을 경험하세요.', link: '' },
-  { order: 3, class: 'banner-03', imgSrc: '/images/main-banner-03.jpg', title: '한국을 넘어 세계로', description: '유학, 취업, 비자 지원까지, 한국어로 시작하는 글로벌 여정을 함께합니다. 한국어교원 자격증과 유학 연계 프로그램으로 꿈을 현실로 바꾸세요.', link: ''}
-];
+  {
+    order: 1,
+    class: 'banner-01',
+    imgSrc: '/images/main-banner-01.jpg',
+    title: '당신의 한국어를 세계로',
+    description:
+      '초보자부터 TOPIK 고급까지, 언제 어디서나 품질 높은 한국어 강의로 실력을 키우세요. 생활 회화부터 근로 현장 특화 교육까지, 맞춤 학습을 경험하세요.',
+    link: '',
+  },
+  {
+    order: 2,
+    class: 'banner-02',
+    imgSrc: '/images/main-banner-02.jpg',
+    title: 'AI로 여는 학습의 미래',
+    description:
+      '실시간 화상 강의, 발음 분석, 맞춤형 코스웨어로 당신의 한국어를 정밀하게 업그레이드합니다. AI가 분석한 개인별 피드백으로 더 빠르고 효과적인학습을 경험하세요.',
+    link: '',
+  },
+  {
+    order: 3,
+    class: 'banner-03',
+    imgSrc: '/images/main-banner-03.jpg',
+    title: '한국을 넘어 세계로',
+    description: '유학, 취업, 비자 지원까지, 한국어로 시작하는 글로벌 여정을 함께합니다. 한국어교원 자격증과 유학 연계 프로그램으로 꿈을 현실로 바꾸세요.',
+    link: '',
+  },
+]
 
 const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick }) => {
-  const isActive = activeIndex === index;
-  const infoRef = useRef(null);
-  const listRef = useRef(null);
+  const isActive = activeIndex === index
+  const infoRef = useRef(null)
+  const listRef = useRef(null)
 
   useEffect(() => {
     if (infoRef.current) {
-      const p = infoRef.current.querySelector('p');
+      const p = infoRef.current.querySelector('p')
       const strong = infoRef.current.querySelector('strong')
       const tl = gsap.timeline({
         defaults: {
@@ -46,18 +69,21 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
           opacity: 0,
           stagger: 0.2,
           // onComplete: () => console.log(`${className} - p, strong 닫힘 애니메이션 완료`),
-        })
-          .fromTo(listRef.current.querySelector('.item-label-inner'), {
+        }).fromTo(
+          listRef.current.querySelector('.item-label-inner'),
+          {
             opacity: 0,
             y: 10,
-          }, {
-          opacity: 1,
-          y: 0,
-          duration: 0.05,
-          ease: 'power2.easeOut',
-          stagger: 0.1,
-          // onComplete: () => console.log(`== ${className} item-label-inner 애니메이션 완료`),
-        })
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.05,
+            ease: 'power2.easeOut',
+            stagger: 0.1,
+            // onComplete: () => console.log(`== ${className} item-label-inner 애니메이션 완료`),
+          }
+        )
       }
     }
   }, [isActive])
@@ -70,7 +96,7 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
         duration: 0.2,
         ease: 'power2.easeIn',
       })
-      return;
+      return
     }
   }
 
@@ -82,10 +108,9 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
         duration: 0.2,
         ease: 'power2.easeIn',
       })
-      return;
+      return
     }
   }
-
 
   return (
     <li
@@ -98,33 +123,33 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
     >
       <div className="item-label">
         <div className="item-label-inner">
-          <span className="number">0{ index + 1 }</span>
-          <span className="text">{ item.title }</span>
+          <span className="number">0{index + 1}</span>
+          <span className="text">{item.title}</span>
         </div>
       </div>
       <div className="info-wrap">
         <div className="info-inner" ref={infoRef}>
-          <strong>“{ item.title }”</strong>
-          <p>{ item.description }</p>
+          <strong>“{item.title}”</strong>
+          <p>{item.description}</p>
         </div>
       </div>
       <div className="img-wrap">
-        <img src={ item.imgSrc } alt="메인 배너" />
+        <img src={item.imgSrc} alt="메인 배너" />
       </div>
     </li>
-  );
+  )
 }
 
 const MainBanner = () => {
   const listsRef = useRef(null)
   const tlRef = useRef(null)
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(null);
-  const expand = useMemo(() => ({ flexGrow: 1, flexBasis: 0 }), []);
-  const shrink = useMemo(() => ({ flexGrow: 0, flexBasis: 120 }), []);
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(null)
+  const expand = useMemo(() => ({ flexGrow: 1, flexBasis: 0 }), [])
+  const shrink = useMemo(() => ({ flexGrow: 0, flexBasis: 120 }), [])
 
   useEffect(() => {
-    if (tlRef.current) tlRef.current.kill();
+    if (tlRef.current) tlRef.current.kill()
 
     tlRef.current = gsap.timeline({
       defaults: {
@@ -134,49 +159,69 @@ const MainBanner = () => {
       onStart: () => setIsAnimating(true),
       onUpdate: () => {},
       onComplete: () => {
-        setIsAnimating(false);
+        setIsAnimating(false)
         setActiveIndex(0)
       },
-    });
+    })
 
     tlRef.current
       .to(['.banner-03'], {
         ...expand,
         // onComplete: () => console.log('.banner-03 확장 완료'),
       })
-      .to(['.banner-03'], {
-        ...shrink,
-        // onComplete: () => console.log('.banner-03 축소 완료'),
-      }, ">")
-      .to(['.banner-02'], {
-        ...expand,
-        // onComplete: () => console.log('.banner-02 확장 완료'),
-      }, "<")
-      .to(['.banner-02'], {
-        ...shrink,
-        // onComplete: () => console.log('.banner-03 축소 완료'),
-      }, ">")
-      .to(['.banner-01'], {
-        ...expand,
-        // onComplete: () => console.log('.banner-02 확장 완료'),
-      }, "<")
-      .fromTo(['.banner-03 .item-label-inner', '.banner-02 .item-label-inner'], {
-        opacity: 0,
-        y: 10,
-      }, {
-        opacity: 1,
-        y: 0,
-        duration: 0.2,
-        ease: 'power2.easeOut',
-        stagger: 0.1,
-      })
+      .to(
+        ['.banner-03'],
+        {
+          ...shrink,
+          // onComplete: () => console.log('.banner-03 축소 완료'),
+        },
+        '>'
+      )
+      .to(
+        ['.banner-02'],
+        {
+          ...expand,
+          // onComplete: () => console.log('.banner-02 확장 완료'),
+        },
+        '<'
+      )
+      .to(
+        ['.banner-02'],
+        {
+          ...shrink,
+          // onComplete: () => console.log('.banner-03 축소 완료'),
+        },
+        '>'
+      )
+      .to(
+        ['.banner-01'],
+        {
+          ...expand,
+          // onComplete: () => console.log('.banner-02 확장 완료'),
+        },
+        '<'
+      )
+      .fromTo(
+        ['.banner-03 .item-label-inner', '.banner-02 .item-label-inner'],
+        {
+          opacity: 0,
+          y: 10,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.2,
+          ease: 'power2.easeOut',
+          stagger: 0.1,
+        }
+      )
 
     return () => {
       if (tlRef.current) {
-        tlRef.current.kill(); // 컴포넌트 언마운트 시 정리
+        tlRef.current.kill() // 컴포넌트 언마운트 시 정리
       }
-    };
-   }, []);
+    }
+  }, [])
 
   const onClick = (index) => {
     setActiveIndex(index)
@@ -186,36 +231,39 @@ const MainBanner = () => {
         ease: 'power2.easeOut',
         duration: 0.2,
       },
-    });
+    })
 
-    const copiedBanners = [...banners];
-    copiedBanners.splice(index, 1);
-    const sortedBanners = copiedBanners.sort((a, b) => (b.order - a.order))
-    const slicedBanners = sortedBanners.map(item => (`.${item.class}`))
-    const selectedBanner = `.${banners[index].class}`;
+    const copiedBanners = [...banners]
+    copiedBanners.splice(index, 1)
+    const sortedBanners = copiedBanners.sort((a, b) => b.order - a.order)
+    const slicedBanners = sortedBanners.map((item) => `.${item.class}`)
+    const selectedBanner = `.${banners[index].class}`
 
     // console.log("slicedBanners: ", slicedBanners)
     // console.log("selectedBanner: ", selectedBanner)
 
-    tl
-      .to(selectedBanner, {
-        duration: 0.3,
-        ease: 'power2.easeIn',
-        ...expand
-      })
-      .to(slicedBanners, {
+    tl.to(selectedBanner, {
+      duration: 0.3,
+      ease: 'power2.easeIn',
+      ...expand,
+    }).to(
+      slicedBanners,
+      {
         ...shrink,
         duration: 0.3,
         ease: 'power2.easeIn',
-      }, "<")
+      },
+      '<'
+    )
   }
-
 
   return (
     <MainBannerContainer>
       <div className="banner-inner">
         <ul ref={listsRef} className="banner-list">
-          {banners.map((item, index) => <BannerItem isAnimating={isAnimating} className={item.class} activeIndex={activeIndex} key={index} item={item} index={index} onClick={onClick}/>)}
+          {banners.map((item, index) => (
+            <BannerItem isAnimating={isAnimating} className={item.class} activeIndex={activeIndex} key={index} item={item} index={index} onClick={onClick} />
+          ))}
         </ul>
       </div>
     </MainBannerContainer>
@@ -224,7 +272,7 @@ const MainBanner = () => {
 
 const MainBannerContainer = styled.div`
   width: 100%;
-    height: 100vh;
+  height: 100vh;
 
   .img-wrap {
     position: absolute;
@@ -265,7 +313,7 @@ const MainBannerContainer = styled.div`
       p {
         font-size: 26px;
         letter-space: -1px;
-        color: #FFFFFF;
+        color: #ffffff;
         text-shadow: var(--text-shadow);
         word-break: keep-all;
         line-height: 1.6;
@@ -327,13 +375,12 @@ const MainBannerContainer = styled.div`
         & .number {
           font-size: 16px;
           font-weight: 700;
-          color: #FFFFFF;
-
+          color: #ffffff;
         }
         & .text {
           font-size: 26px;
           color: rgba(255, 255, 255, 0.6);
-          letter-spacing: -1px;
+          letter-spacing: -0.025em;
           font-weight: 600;
           transition: all 0.4s ease;
           opacity: 0;

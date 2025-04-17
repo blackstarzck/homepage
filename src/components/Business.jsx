@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
-import styled from "styled-components";
+import { useEffect, useRef } from 'react'
+import styled from 'styled-components'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import ScrambleText from "scramble-text";
+import ScrambleText from 'scramble-text'
+import Rellax from 'rellax'
 
 gsap.registerPlugin(ScrollTrigger) // ScrollTrigger 플러그인 등록
-
 
 const data = [
   { description: 'Korean Online Lessons', title: '한국어 온라인 강의', imgSrc: '/images/sample-01.jpg', link: '' },
@@ -15,13 +15,17 @@ const data = [
 ]
 
 const Business = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef(null)
 
   useEffect(() => {
+    new Rellax('.rellax', {
+      center: true,
+    })
+
     const scrambleText = new ScrambleText(sectionRef?.current, {
-      timeOffset : 100,
+      timeOffset: 100,
       chars: ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ', 'ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'],
-    }).play();
+    }).play()
 
     ScrollTrigger.create({
       trigger: sectionRef.current,
@@ -29,21 +33,23 @@ const Business = () => {
       end: 'bottom center',
       toggleClass: 'active',
       onEnter: () => {
-        scrambleText.start();
+        scrambleText.start()
       },
       once: true,
     })
-  }, []);
+  }, [])
 
   return (
     <BusinessContainer>
-      <h3 ref={sectionRef} className="font-montserrat">BUSINESS</h3>
+      <h3 ref={sectionRef} className="font-montserrat">
+        BUSINESS
+      </h3>
       <ul>
         {data.map((item, index) => (
-          <li key={index}>
+          <li key={index} className="rellax" data-rellax-speed={index * 2}>
             <div className="head-wrap">
-              <span className="font-montserrat">{item.description}</span>
               <strong>{item.title}</strong>
+              <span className="font-montserrat">{item.description}</span>
             </div>
             <div className="img-wrap">
               <img src={item.imgSrc} alt={item.title} />
@@ -56,13 +62,12 @@ const Business = () => {
 }
 
 const BusinessContainer = styled.article`
-  width: 1420px;
   height: 100vh;
   padding: 64px 10px 0;
   margin: 0 auto;
   h3 {
     text-align: center;
-    font-weight: 700
+    font-weight: 700;
   }
 
   .head-wrap {
@@ -70,10 +75,14 @@ const BusinessContainer = styled.article`
     flex-direction: column;
     gap: 10px;
     margin-bottom: 26px;
+    letter-spacing: -0.025em;
 
-    span {}
+    span {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
     strong {
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 700;
     }
   }
@@ -108,4 +117,4 @@ const BusinessContainer = styled.article`
   }
 `
 
-export default Business;
+export default Business

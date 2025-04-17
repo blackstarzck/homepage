@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const gnbList = [
   {
@@ -51,7 +51,7 @@ const Footer = () => {
             {gnbList.map((item, index) => {
               return (
                 <li key={index}>
-                  <span>{item.name}</span>
+                  <span className="font-montserrat">{item.name}</span>
                   <div className="snb">
                     <ul className="snb-list">
                       {item.subList.map((item, index) => (
@@ -81,8 +81,12 @@ const Footer = () => {
               <p>Copyright @ 2025 by Keduall Corp. All Rights Reserved </p>
             </div>
             <div>
-              <a href="#"><img src="/icons/facebook_white.svg" alt="페이스북" /></a>
-              <a href="#"><img src="/icons/tiktok_white.svg" alt="틱톡" /></a>
+              <a href="#">
+                <img src="/icons/facebook_white.svg" alt="페이스북" />
+              </a>
+              <a href="#">
+                <img src="/icons/tiktok_white.svg" alt="틱톡" />
+              </a>
             </div>
           </div>
         </div>
@@ -98,15 +102,15 @@ const FooterContainer = styled.footer`
   padding-top: 90px;
 
   h1 img {
-    height: 44px;w
+    height: 44px;
   }
 
   .footer-wrap {
-    width: 1440px;
+    max-width: 1440px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap:72px;
+    gap: 72px;
 
     .border {
       width: 100%;
@@ -123,7 +127,6 @@ const FooterContainer = styled.footer`
     & > div {
       padding-top: 10px;
       display: flex;
-
 
       &:first-child {
         flex-direction: column;
@@ -175,11 +178,11 @@ const FooterContainer = styled.footer`
       & > span {
         display: inline-flex;
         align-items: center;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 500;
         width: 100%;
         height: 100%;
-        color: #C5C5C5;
+        color: #c5c5c5;
       }
     }
   }
@@ -187,16 +190,16 @@ const FooterContainer = styled.footer`
     padding-top: 30px;
   }
   & .snb-list {
-
     li {
       padding: 10px 0;
       white-space: nowrap;
 
       a {
         color: #999999;
+        font-size: 14px;
       }
     }
   }
 `
 
-export default Footer;
+export default Footer

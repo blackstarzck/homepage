@@ -239,7 +239,9 @@ const HeaderContainer = styled.header`
         height: 60px;
         flex-shrink: 0;
 
-        img { width: 100% }
+        img {
+          width: 100%;
+        }
       }
     }
 
@@ -273,7 +275,6 @@ const HeaderContainer = styled.header`
         // width: 120px;
       }
       & .snb-list {
-
         li {
           padding: 10px 0;
           visibility: hidden;
@@ -406,7 +407,7 @@ const HeaderMenuWrap = styled.div`
               li.item > span {
                 font-size: 22px;
                 font-weight: 600;
-                letter-spacing: -1px;
+                letter-spacing: -0.025em;
                 position: relative;
                 padding-bottom: 16px;
                 color: var(--text-wram);
@@ -425,7 +426,7 @@ const HeaderMenuWrap = styled.div`
               li.item a {
                 font-size: 18px;
                 font-weight: 400;
-                letter-spacing: -1px;
+                letter-spacing: -0.025em;
                 transition: color 0.2s ease;
                 color: var(--text-secondary);
 

@@ -17,9 +17,9 @@ const Vision = () => {
 
   useEffect(() => {
     const scrambleText = new ScrambleText(sectionRef?.current, {
-      timeOffset : 100,
+      timeOffset: 100,
       chars: ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ', 'ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'],
-    }).play();
+    }).play()
     // scrambleText.start();
 
     ScrollTrigger.create({
@@ -27,7 +27,7 @@ const Vision = () => {
       start: 'top center',
       end: 'bottom center',
       onEnter: () => {
-        scrambleText.start();
+        scrambleText.start()
         gsap.fromTo('.vision-container p.description', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.5 })
       },
       // markers: true,
@@ -58,7 +58,9 @@ const Vision = () => {
 
   return (
     <VisionContainer className="vision-container">
-      <h3 ref={sectionRef} className="font-montserrat">VISION</h3>
+      <h3 ref={sectionRef} className="font-montserrat">
+        VISION
+      </h3>
       <p className="description">
         우리는 AI 기반 한국어 교육과 유학/취업 지원으로 학습자의 꿈을 실현합니다.
         <br />
@@ -94,10 +96,9 @@ const VisionContainer = styled.article`
   user-select: none;
   height: 100vh;
 
-
   h3 {
     text-align: center;
-    font-weight: 700
+    font-weight: 700;
   }
 
   p.description {
@@ -107,7 +108,7 @@ const VisionContainer = styled.article`
     line-height: 1.6;
     margin: 175px 0;
     opacity: 0;
-    letter-spacing: -1px;
+    letter-spacing: -0.025em;
   }
   .vision-wrap {
     display: flex;
@@ -164,8 +165,8 @@ const VisionContainer = styled.article`
       .key-word {
         font-size: 24px;
         font-weight: bold;
-        letter-spacing: -1px;
-        color: rgba(255, 255, 255, .1);
+        letter-spacing: -0.025em;
+        color: rgba(255, 255, 255, 0.1);
         text-align: center;
         position: absolute;
         top: 50%;
