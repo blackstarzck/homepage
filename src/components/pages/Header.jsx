@@ -1,6 +1,5 @@
-import styled, { css } from 'styled-components'
-import MainBanner from './MainBanner'
 import { useState } from 'react'
+import styled, { css } from 'styled-components'
 
 const gnbList = [
   {
@@ -44,122 +43,114 @@ const gnbList = [
   },
 ]
 
-const Home = () => {
+const Header = () => {
   const [activeState, setActiveState] = useState('')
 
   return (
-    <>
-      <HeaderContainer>
-        <div className={`header-wrap ${activeState}`}>
-          <div className="header-gnb-wrap">
-            <div className="header-inner">
-              <h1 className="logo"><img src="/images/keduall_dark.png" alt="로고" /></h1>
-              <div className="header-inner-grid">
-                <nav className="gnb">
-                  <ul className="gnb-list">
-                    {gnbList.map((item, index) => {
-                      return (
-                        <li key={index} onMouseEnter={() => setActiveState('gnb-active')} onMouseLeave={() => setActiveState('')}>
-                          <span className="font-montserrat">{item.name}</span>
-                          <div className="snb">
-                            <ul className="snb-list">
-                              {item.subList.map((item, index) => (
-                                <li key={index}>
-                                  <a href={item.link}>{item.name}</a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </nav>
-              </div>
-              <div className="side-btn-wrap">
-                {/* <button className="search" onClick={() => (activeState === 'search-active' ? setActiveState('') : setActiveState('search-active'))}>
-                  <span>검색</span>
-                </button> */}
-                <button className="menu" onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}>
-                  <span>메뉴</span>
-                </button>
-              </div>
-              <HeaderMenuWrap $menuAcitve={activeState === 'menu-active'}>
-                <button
-                  type="button"
-                  className="close-btn"
-                  onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}
-                >
-                  <img src="/icons/close_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24.svg" alt="닫기" />
-                </button>
-                <div className="menu-inner">
-                  <div className="menu-content">
-                    {/* top */}
-                    <div className="menu-content-top"></div>
-                    {/* body */}
-                    <div className="menu-content-body">
-                      <div className="menu-content-body-inner">
-                        {/* left */}
-                        <div className="title">Site Map</div>
-                        {/* right */}
-                        <div className="list">
-                          <ul className="list-wrap">
-                            {gnbList.map((item, index) => (
-                              <li className="item" key={index}>
-                                <span>{item.name}</span>
-                                <ul className="sub-list">
-                                  {item.subList.map((item, index) => (
-                                    <li className="sub-item" key={index}>
-                                      <a href={item.link}>{item.name}</a>
-                                    </li>
-                                  ))}
-                                </ul>
+    <HeaderContainer>
+      <div className={`header-wrap ${activeState}`}>
+        <div className="header-gnb-wrap">
+          <div className="header-inner">
+            <h1 className="logo">
+              <img src="/images/keduall_dark.png" alt="로고" />
+            </h1>
+            <div className="header-inner-grid">
+              <nav className="gnb">
+                <ul className="gnb-list">
+                  {gnbList.map((item, index) => {
+                    return (
+                      <li key={index} onMouseEnter={() => setActiveState('gnb-active')} onMouseLeave={() => setActiveState('')}>
+                        <span className="font-montserrat">{item.name}</span>
+                        <div className="snb">
+                          <ul className="snb-list">
+                            {item.subList.map((item, index) => (
+                              <li key={index}>
+                                <a href={item.link}>{item.name}</a>
                               </li>
                             ))}
                           </ul>
                         </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </nav>
+            </div>
+            <div className="side-btn-wrap">
+              {/* <button className="search" onClick={() => (activeState === 'search-active' ? setActiveState('') : setActiveState('search-active'))}>
+                <span>검색</span>
+              </button> */}
+              <button className="menu" onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}>
+                <span>메뉴</span>
+              </button>
+            </div>
+            <HeaderMenuWrap $menuAcitve={activeState === 'menu-active'}>
+              <button type="button" className="close-btn" onClick={() => (activeState === 'menu-active' ? setActiveState('') : setActiveState('menu-active'))}>
+                <img src="/icons/close_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24.svg" alt="닫기" />
+              </button>
+              <div className="menu-inner">
+                <div className="menu-content">
+                  {/* top */}
+                  <div className="menu-content-top"></div>
+                  {/* body */}
+                  <div className="menu-content-body">
+                    <div className="menu-content-body-inner">
+                      {/* left */}
+                      <div className="title font-montserrat">Site Map</div>
+                      {/* right */}
+                      <div className="list">
+                        <ul className="list-wrap">
+                          {gnbList.map((item, index) => (
+                            <li className="item" key={index}>
+                              <span>{item.name}</span>
+                              <ul className="sub-list">
+                                {item.subList.map((item, index) => (
+                                  <li className="sub-item" key={index}>
+                                    <a href={item.link}>{item.name}</a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
-                    {/* bottom */}
-                    <div className="menu-content-bottom">
-                      <div className="menu-content-bottom-inner">
-                        <div className="common-menu">
-                          <ul className="common-menu-list">
-                            <li className="item">
-                              <a href="#">개인정보처리방침</a>
-                            </li>
-                            <li className="item">
-                              <a href="#">고객지원</a>
-                            </li>
-                            <li className="item">
-                              <a href="#">사업장 소개</a>
-                            </li>
-                            <li className="item">
-                              <a href="#">관계사 소개</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="sns-menu">
-                          <ul className="sns-menu-list">
-                            <li className="item"></li>
-                            <li className="item"></li>
-                            <li className="item"></li>
-                          </ul>
-                        </div>
+                  </div>
+                  {/* bottom */}
+                  <div className="menu-content-bottom">
+                    <div className="menu-content-bottom-inner">
+                      <div className="common-menu">
+                        <ul className="common-menu-list">
+                          <li className="item">
+                            <a href="#">개인정보처리방침</a>
+                          </li>
+                          <li className="item">
+                            <a href="#">고객지원</a>
+                          </li>
+                          <li className="item">
+                            <a href="#">사업장 소개</a>
+                          </li>
+                          <li className="item">
+                            <a href="#">관계사 소개</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="sns-menu">
+                        <ul className="sns-menu-list">
+                          <li className="item"></li>
+                          <li className="item"></li>
+                          <li className="item"></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
-              </HeaderMenuWrap>
-            </div>
+              </div>
+            </HeaderMenuWrap>
           </div>
         </div>
-      </HeaderContainer>
-      <Section>
-        <MainBanner />
-      </Section>
-      <Section>section 02</Section>
-    </>
+      </div>
+    </HeaderContainer>
   )
 }
 
@@ -183,8 +174,8 @@ const HeaderContainer = styled.header`
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0);
-      backdrop-filter: blur(0);
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
       overflow: hidden;
       transition:
         height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
@@ -199,9 +190,6 @@ const HeaderContainer = styled.header`
       backdrop-filter: blur(4px);
 
       & .gnb-list li {
-        span {
-          color: var(--text-secondary);
-        }
         &:hover {
           span {
             color: var(--text-default);
@@ -338,7 +326,7 @@ const HeaderContainer = styled.header`
         background: url('/icons/search_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24.svg') no-repeat center center / 100% 100%;
       }
       & button.menu {
-        background: url('/icons/menu_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24.svg') no-repeat center center / 100% 100%;
+        background: url('/icons/menu_24dp_1F1F1F_FILL0_wght300_GRAD0_opsz24.svg') no-repeat center center / 100% 100%;
       }
     }
   }
@@ -416,27 +404,33 @@ const HeaderMenuWrap = styled.div`
                 flex: 1;
               }
               li.item > span {
+                font-size: 22px;
+                font-weight: 600;
+                letter-spacing: -1px;
                 position: relative;
                 padding-bottom: 16px;
-                color: var(--text-secondary);
+                color: var(--text-wram);
 
                 &::after {
                   content: '';
                   display: block;
                   width: 60%;
-                  height: 2px;
+                  height: 1px;
                   position: absolute;
                   bottom: 0;
                   left: 0;
-                  background-color: var(--text-default);
+                  background-color: var(--text-warm);
                 }
               }
               li.item a {
                 font-size: 18px;
                 font-weight: 400;
+                letter-spacing: -1px;
                 transition: color 0.2s ease;
+                color: var(--text-secondary);
+
                 &:hover {
-                  color: var(--secondary);
+                  color: var(--text-default);
                 }
               }
               li.item .sub-list {
@@ -473,10 +467,4 @@ const HeaderMenuWrap = styled.div`
   }
 `
 
-const Section = styled.section`
-  width: 100%;
-  height: 100vh;
-  background-color: lightgray;
-`
-
-export default Home
+export default Header

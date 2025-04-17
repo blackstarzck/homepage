@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import gsap from 'gsap'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 
 const banners = [
   { order: 1, class: 'banner-01', imgSrc: '/images/main-banner-01.jpg', title: '당신의 한국어를 세계로', description: '초보자부터 TOPIK 고급까지, 언제 어디서나 품질 높은 한국어 강의로 실력을 키우세요. 생활 회화부터 근로 현장 특화 교육까지, 맞춤 학습을 경험하세요.', link: '' },
@@ -14,15 +14,9 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
   const listRef = useRef(null);
 
   useEffect(() => {
-    if (isActive && infoRef.current) {
+    if (infoRef.current) {
       const p = infoRef.current.querySelector('p');
       const strong = infoRef.current.querySelector('strong')
-
-      gsap.set([p, strong], {
-        x: 60,
-        opacity: 0,
-        display: 'block',
-      })
       const tl = gsap.timeline({
         defaults: {
           ease: 'power2.out',
@@ -30,20 +24,47 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
         },
       })
 
-      tl.to([p, strong], {
-        x: 0,
-        opacity: 1,
-        stagger: 0.2,
-        delay: 0.2,
-        onComplete: () => console.log('p, strong 애니메이션 완료'),
-      })
+      if (isActive) {
+        gsap.set([p, strong], {
+          x: 60,
+          opacity: 0,
+          display: 'block',
+        })
+
+        tl.to([p, strong], {
+          x: 0,
+          opacity: 1,
+          stagger: 0.2,
+          delay: 0.2,
+          // onComplete: () => console.log(`${className} - p, strong 열림 애니메이션 완료`),
+        })
+      } else if (activeIndex !== null && !isActive) {
+        // console.log(`${className} item-label-inner 닫여야함~!~! `, listRef.current.querySelector('.item-label-inner'))
+
+        tl.to([p, strong], {
+          x: 60,
+          opacity: 0,
+          stagger: 0.2,
+          // onComplete: () => console.log(`${className} - p, strong 닫힘 애니메이션 완료`),
+        })
+          .fromTo(listRef.current.querySelector('.item-label-inner'), {
+            opacity: 0,
+            y: 10,
+          }, {
+          opacity: 1,
+          y: 0,
+          duration: 0.05,
+          ease: 'power2.easeOut',
+          stagger: 0.1,
+          // onComplete: () => console.log(`== ${className} item-label-inner 애니메이션 완료`),
+        })
+      }
     }
   }, [isActive])
 
   const onMouseEnter = (e) => {
     if (!isAnimating && !isActive) {
       gsap.to(listRef.current, {
-        // width: '15%',
         flexGrow: 0,
         flexBasis: 160,
         duration: 0.2,
@@ -56,7 +77,6 @@ const BannerItem = ({ isAnimating, className, item, activeIndex, index, onClick 
   const onMouseLeave = (e) => {
     if (!isAnimating && !isActive) {
       gsap.to(listRef.current, {
-        // width: '10%',
         flexGrow: 0,
         flexBasis: 120,
         duration: 0.2,
@@ -100,6 +120,8 @@ const MainBanner = () => {
   const tlRef = useRef(null)
   const [isAnimating, setIsAnimating] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
+  const expand = useMemo(() => ({ flexGrow: 1, flexBasis: 0 }), []);
+  const shrink = useMemo(() => ({ flexGrow: 0, flexBasis: 120 }), []);
 
   useEffect(() => {
     if (tlRef.current) tlRef.current.kill();
@@ -117,31 +139,28 @@ const MainBanner = () => {
       },
     });
 
-    const expand = { flexGrow: 1, flexBasis: 0 };
-    const shrink = { flexGrow: 0, flexBasis: 120 };
-
     tlRef.current
       .to(['.banner-03'], {
         ...expand,
-        onComplete: () => console.log('.banner-03 확장 완료'),
+        // onComplete: () => console.log('.banner-03 확장 완료'),
       })
       .to(['.banner-03'], {
         ...shrink,
-        onComplete: () => console.log('.banner-03 축소 완료'),
+        // onComplete: () => console.log('.banner-03 축소 완료'),
       }, ">")
       .to(['.banner-02'], {
         ...expand,
-        onComplete: () => console.log('.banner-02 확장 완료'),
+        // onComplete: () => console.log('.banner-02 확장 완료'),
       }, "<")
       .to(['.banner-02'], {
         ...shrink,
-        onComplete: () => console.log('.banner-03 축소 완료'),
+        // onComplete: () => console.log('.banner-03 축소 완료'),
       }, ">")
       .to(['.banner-01'], {
         ...expand,
-        onComplete: () => console.log('.banner-02 확장 완료'),
+        // onComplete: () => console.log('.banner-02 확장 완료'),
       }, "<")
-      .fromTo('.item-label-inner', {
+      .fromTo(['.banner-03 .item-label-inner', '.banner-02 .item-label-inner'], {
         opacity: 0,
         y: 10,
       }, {
@@ -167,9 +186,6 @@ const MainBanner = () => {
         ease: 'power2.easeOut',
         duration: 0.2,
       },
-      onStart: () => setIsAnimating(true),
-      onUpdate: () => {},
-      onComplete: () => setIsAnimating(false),
     });
 
     const copiedBanners = [...banners];
@@ -178,39 +194,20 @@ const MainBanner = () => {
     const slicedBanners = sortedBanners.map(item => (`.${item.class}`))
     const selectedBanner = `.${banners[index].class}`;
 
-    console.log("slicedBanners: ", slicedBanners)
-    console.log("selectedBanner: ", selectedBanner)
+    // console.log("slicedBanners: ", slicedBanners)
+    // console.log("selectedBanner: ", selectedBanner)
 
     tl
       .to(selectedBanner, {
-        // width: '100%',
-        duration: 0.1,
+        duration: 0.3,
         ease: 'power2.easeIn',
-        flexGrow: 1,
-        flexBasis: 0,
+        ...expand
       })
       .to(slicedBanners, {
-        // width: '10%',
-        flexGrow: 0,
-        flexBasis: 120,
-        duration: 0.1,
+        ...shrink,
+        duration: 0.3,
         ease: 'power2.easeIn',
-        stagger: 0.1,
-      })
-      .fromTo(
-        `${selectedBanner} .item-label-inner`,
-        {
-          opacity: 0,
-          y: 60,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.easeOut',
-        },
-        '-=0.1' // 이전 애니메이션과 겹치도록 조정
-      );
+      }, "<")
   }
 
 
@@ -227,7 +224,7 @@ const MainBanner = () => {
 
 const MainBannerContainer = styled.div`
   width: 100%;
-  height: 100%;
+    height: 100vh;
 
   .img-wrap {
     position: absolute;
@@ -325,19 +322,21 @@ const MainBannerContainer = styled.div`
         flex-direction: column;
         gap: 6px;
         white-space: nowrap;
+        opacity: 0;
 
         & .number {
           font-size: 16px;
           font-weight: 700;
           color: #FFFFFF;
+
         }
         & .text {
           font-size: 26px;
           color: rgba(255, 255, 255, 0.6);
           letter-spacing: -1px;
           font-weight: 600;
-          opacity: 0;
           transition: all 0.4s ease;
+          opacity: 0;
         }
       }
     }
@@ -353,13 +352,7 @@ const MainBannerContainer = styled.div`
 
     &.active {
       cursor: default;
-      // flex-grow: 1;
-      // flex-basis: 0px;
 
-      .info-inner {
-        // opacity: 1;
-        // visibility: visible;
-      }
       .item-label .item-label-inner .number {
         opacity: 0;
       }
