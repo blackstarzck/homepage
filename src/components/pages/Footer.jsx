@@ -50,7 +50,7 @@ const Footer = () => {
           <ul className="gnb-list">
             {gnbList.map((item, index) => {
               return (
-                <li key={index} onMouseEnter={() => setActiveState('gnb-active')} onMouseLeave={() => setActiveState('')}>
+                <li key={index}>
                   <span>{item.name}</span>
                   <div className="snb">
                     <ul className="snb-list">
@@ -161,7 +161,7 @@ const FooterContainer = styled.footer`
     }
     p {
       color: #999999;
-
+      font-size: 14px;
     }
   }
 
@@ -179,8 +179,7 @@ const FooterContainer = styled.footer`
         font-weight: 500;
         width: 100%;
         height: 100%;
-        cursor: pointer;
-        color: #FFFFFF;
+        color: #C5C5C5;
       }
     }
   }
