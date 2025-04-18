@@ -282,24 +282,20 @@ const HeaderContainer = styled.header`
 
           a {
             position: relative;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
 
             &::after {
               content: '';
               position: absolute;
-              bottom: -5px;
+              bottom: -3px;
               left: 0;
               display: block;
               width: 0;
-              height: 2px;
-              background-color: rgba(255, 255, 255, 0.8);
+              height: 1px;
+              background-color: #000000;
               transition: width 0.2s ease;
             }
-          }
-
-          & > a {
-            color: var(--text-default);
-            font-size: 16px;
-            transition: color 0.2s ease;
 
             &:hover {
               color: var(--text-default);
