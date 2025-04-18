@@ -12,9 +12,7 @@ const Home = () => {
   return (
     <main>
       <Header />
-      <Section>
-        <MainBanner />
-      </Section>
+      <MainBanner />
       <Section>
         <Typo />
       </Section>
